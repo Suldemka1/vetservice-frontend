@@ -60,6 +60,10 @@ li {
   font-size: 17px;
 }
 
+p {
+  word-break: break-all;
+}
+
 .hideMenuNav {
   display: none;
 }
