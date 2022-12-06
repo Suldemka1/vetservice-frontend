@@ -1,0 +1,32 @@
+---
+import PageName from "../../components/PageName/PageName.astro";
+import ProjectPage from "../../components/Projects/ProjectPage.astro";
+import ActivityPageLayout from "../../layouts/ActivityPageLayout.astro";
+import MainPageLayout from "../../layouts/MainPageLayout.astro";
+import StandartLayout from "../../layouts/StandartLayout.astro";
+
+const { id } = Astro.params;
+
+const project = await fetch(
+  `${import.meta.env.PUBLIC_URL}/api/projects/${id}?populate=*`
+)
+  .then((res) => res.json())
+  .then((res) => res.data)
+  .catch((err) => console.error(err));
+---
+
+<StandartLayout title={project.title}>
+  <PageName title={project.title} />
+  <ActivityPageLayout>
+    <ProjectPage
+      key={project.id}
+      id={project.id}
+      title={project.title}
+      description={project.description}
+      href={project.id}
+      status={project.status}
+      image={project.image.url}
+      documentURL={project.documentation.url}
+    />
+  </ActivityPageLayout>
+</StandartLayout>

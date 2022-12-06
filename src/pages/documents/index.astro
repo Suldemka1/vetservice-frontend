@@ -1,0 +1,20 @@
+---
+import PageName from "../../components/PageName/PageName.astro";
+import DocumentCard from "../../components/Document/DocumentCard.jsx";
+import MainPageLayout from "../../layouts/MainPageLayout.astro";
+import StandartLayout from "../../layouts/StandartLayout.astro";
+import DocumentsFilter from "../../components/Document/DocumentsFilter";
+
+const types = await fetch(
+  `${import.meta.env.PUBLIC_URL}/api/document-types`
+)
+  .then((res) => res.json())
+  .then((res) => res.data)
+---
+
+<StandartLayout title="Банк документов">
+  <PageName title="Банк документов" />
+  <MainPageLayout>
+    <DocumentsFilter client:idle />
+  </MainPageLayout>
+</StandartLayout>

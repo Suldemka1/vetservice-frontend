@@ -1,0 +1,22 @@
+---
+import PageName from "../../components/PageName/PageName.astro";
+import StandartLayout from "../../layouts/StandartLayout.astro";
+import ActivityPageLayout from "../../layouts/ActivityPageLayout.astro";
+
+const content = await fetch(
+  `${import.meta.env.PUBLIC_URL}/api/appointments-page?populate=*`
+)
+  .then((res) => res.json())
+  .then((res) => res.data);
+---
+
+<StandartLayout title="Функции государственного органа">
+  <PageName title="Функции государственного органа" />
+
+  <ActivityPageLayout>
+    <div class="xs:full md:w-full text-md leading-7 [&>p]:pb-3">
+      <h2>Функции Службы Ветеринарии Республики Тыва:</h2>
+      <div class="flex flex-col list-disc" set:html={content.content}></div>
+    </div>
+  </ActivityPageLayout>
+</StandartLayout>

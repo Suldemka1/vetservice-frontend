@@ -1,0 +1,23 @@
+---
+import AboutPageLayout from "../../layouts/AboutPageLayout.astro";
+import PageName from "../../components/PageName/PageName.astro";
+import StandartLayout from "../../layouts/StandartLayout.astro";
+import DocumentLink from "../../components/Document/DocumentLink";
+
+const content = await fetch(
+  `${import.meta.env.PUBLIC_URL}/api/occupational-security-page?populate=*`
+)
+  .then((res) => res.json())
+  .then((res) => res.data);
+
+---
+<StandartLayout title="Охрана труда">
+  <PageName title="Охрана труда" />
+  <AboutPageLayout>
+    <div set:html={content?.content} ></div>
+    <DocumentLink 
+    filename="Охрана труда"
+    url={import.meta.env.PUBLIC_URL + content.document.url}
+    client:load/>
+  </AboutPageLayout>
+</StandartLayout>
